@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     Camera cam;
     public Levels levels;
     public Vector3 rotate;
+    public float tolerance = 0.1f;
     Vector3 _rotation;
     public float speed = 1f;
 
@@ -69,26 +70,33 @@ public class GameManager : MonoBehaviour
         //    float deltaX = tempMousePos.y - mousePos.y;
         //    obj.transform.Rotate(Vector3.right * deltaX * speed * Time.deltaTime);
         //}
-        if (isDragging && !isCtrlDown && !isShiftDown)
+        if (isDragging && !isCtrlDown && !isShiftDown )
         {
-            // Horizontal rotation (around global Y-axis)
             float deltaX = tempMousePos.x - mousePos.x;
             obj.transform.Rotate(0, deltaX * speed * Time.deltaTime, 0, Space.World);
         }
 
-        if (isDragging && isCtrlDown && !isShiftDown)
+        if (isDragging && isCtrlDown && !isShiftDown && (levels == Levels.vertical || levels == Levels.movement))
         {
-            // Vertical rotation (around global X-axis)
             float deltaY =  mousePos.y - tempMousePos.y;
             obj.transform.Rotate(deltaY * speed * Time.deltaTime, 0, 0, Space.World);
         }
-        if (isDragging && !isCtrlDown && isShiftDown)
+        if (isDragging && !isCtrlDown && isShiftDown && levels == Levels.movement)
         {
-
             Vector3 worldMousePos = cam.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, distence));
             obj.transform.position = new Vector3(worldMousePos.x, worldMousePos.y,0);
 
         }
+        if (IsRotationCloseToTarget(obj.transform.eulerAngles, rotate, tolerance))
+        {
+            Debug.Log("Rotation is close to the target!");
+        }
         tempMousePos = mousePos;
+    }
+    bool IsRotationCloseToTarget(Vector3 currentRotation, Vector3 targetRotation, float tolerance)
+    {
+        return Mathf.Abs(currentRotation.x - targetRotation.x) <= tolerance &&
+               Mathf.Abs(currentRotation.y - targetRotation.y) <= tolerance &&
+               Mathf.Abs(currentRotation.z - targetRotation.z) <= tolerance;
     }
 }
