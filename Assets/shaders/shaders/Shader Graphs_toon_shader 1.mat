@@ -20,7 +20,8 @@ Material:
   m_CustomRenderQueue: 2050
   stringTagMap:
     RenderType: Opaque
-  disabledShaderPasses: []
+  disabledShaderPasses:
+  - SHADOWCASTER
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
@@ -42,20 +43,20 @@ Material:
     - _AlphaClip: 0
     - _AlphaToMask: 0
     - _Blend: 0
-    - _CastShadows: 1
+    - _CastShadows: 0
     - _Cull: 2
     - _DstBlend: 0
     - _Height: 4.09
-    - _Max: 4.7
-    - _Min: 0.3
+    - _Max: 2.62
+    - _Min: 0.65
     - _QueueControl: 0
     - _QueueOffset: 50
-    - _Shades: 0.312
+    - _Shades: 0.345
     - _Size: 0.172
     - _SrcBlend: 1
     - _Surface: 0
     - _Width: 3.74
-    - _ZTest: 2
+    - _ZTest: 6
     - _ZWrite: 1
     - _ZWriteControl: 0
     m_Colors:

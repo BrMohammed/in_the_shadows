@@ -43,19 +43,19 @@ Material:
     - _AlphaToMask: 0
     - _Blend: 0
     - _CastShadows: 1
-    - _Cull: 2
+    - _Cull: 0
     - _DstBlend: 0
-    - _Height: 4.09
-    - _Max: 10.9
-    - _Min: 0.3
-    - _QueueControl: 0
+    - _Height: 4.32
+    - _Max: 8.35
+    - _Min: 0.17
+    - _QueueControl: 1
     - _QueueOffset: 50
-    - _Shades: 0.374
-    - _Size: 0.172
+    - _Shades: 0.455
+    - _Size: 0.181
     - _SrcBlend: 1
     - _Surface: 0
-    - _Width: 3.74
-    - _ZTest: 4
+    - _Width: 3.27
+    - _ZTest: 2
     - _ZWrite: 1
     - _ZWriteControl: 0
     m_Colors:
