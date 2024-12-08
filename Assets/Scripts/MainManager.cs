@@ -46,9 +46,16 @@ public class MainManager : MonoBehaviour
             {
                 AllCards[i].transform.rotation = Quaternion.Euler(270, 180, 0);
             }
-            if(Level == numberofscens)
+            if(Animated == numberofscens)
             {
-                AllCards[Level - 1].transform.rotation = Quaternion.Euler(270, 180, 0);
+                if(Getint("End") == 0)
+                {
+                    AllCards[numberofscens - 1].GetComponent<Animator>().enabled = !AllCards[numberofscens - 1].GetComponent<Animator>().enabled;
+                    SetInt("End",1);
+                }
+                else
+                    AllCards[Level - 1].transform.rotation = Quaternion.Euler(270, 180, 0);
+
             }
         }
     }
@@ -57,7 +64,7 @@ public class MainManager : MonoBehaviour
 
     private void Update()
     {
-        if(gameObject.activeSelf && !animation)
+        if(Levelcam.activeSelf && !animation)
         {
             int level = Getint("Level");
             int Animated = Getint("Animated");
@@ -100,7 +107,7 @@ public class MainManager : MonoBehaviour
 
     IEnumerator Flipcard()
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1);
         int level = Getint("Level");
         MoveCardWithCurveEffect(AllCards[level], CardsPosetion[level].transform.position);
     }
