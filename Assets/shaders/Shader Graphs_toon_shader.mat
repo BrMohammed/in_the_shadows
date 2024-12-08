@@ -47,7 +47,7 @@ Material:
     - _DstBlend: 0
     - _Height: 4.32
     - _Max: 8.35
-    - _Min: 0.17
+    - _Min: 0.34
     - _QueueControl: 1
     - _QueueOffset: 50
     - _Shades: 0.455
