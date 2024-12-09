@@ -25,6 +25,9 @@ public class MainManager : MonoBehaviour
     static public MainManager init;
     bool animation = false;
 
+
+    static int enter = 0;
+
     private void Awake()
     {
         if (init == null)
@@ -32,6 +35,11 @@ public class MainManager : MonoBehaviour
     }
     private void Start()
     {
+        if (enter == 1)
+        {
+            Levelcam.SetActive(true);
+            startbtn.SetActive(false);
+        }
         print("Animated :" + Getint("Animated") + "Level :" + Getint("Level"));
         _cam = Camera.main;
         int Animated = Getint("Animated");
@@ -40,6 +48,8 @@ public class MainManager : MonoBehaviour
         {
             for (int i = 0; i < Animated; i++)
             {
+                int LayerIgnoreRaycast = LayerMask.NameToLayer("click");
+                AllCards[i].layer = LayerIgnoreRaycast;
                 AllCards[i].transform.position = CardsPosetion[i].transform.position;
             }
             for (int i = 0; i < Animated - 1; i++)
@@ -53,7 +63,7 @@ public class MainManager : MonoBehaviour
                     AllCards[numberofscens - 1].GetComponent<Animator>().enabled = !AllCards[numberofscens - 1].GetComponent<Animator>().enabled;
                     SetInt("End",1);
                 }
-                else
+                else if(Getint("End") == 1)
                     AllCards[Level - 1].transform.rotation = Quaternion.Euler(270, 180, 0);
 
             }
@@ -64,6 +74,7 @@ public class MainManager : MonoBehaviour
 
     private void Update()
     {
+
         if(Levelcam.activeSelf && !animation)
         {
             int level = Getint("Level");
@@ -74,7 +85,11 @@ public class MainManager : MonoBehaviour
                 if (Animated == level && level < numberofscens)
                 {
                     if(level != 0 && level != numberofscens)
+                    {
                         AllCards[level - 1].GetComponent<Animator>().enabled = !AllCards[level - 1].GetComponent<Animator>().enabled;
+                        int LayerIgnoreRaycast = LayerMask.NameToLayer("click");
+                        AllCards[level - 1].layer = LayerIgnoreRaycast;
+                    }
                     StartCoroutine(Flipcard());
                 }
                
@@ -128,6 +143,8 @@ public class MainManager : MonoBehaviour
             int animated = Getint("Animated");
             if(level == animated)
             {
+                int LayerIgnoreRaycast = LayerMask.NameToLayer("click");
+                card.layer = LayerIgnoreRaycast;
                 //card.GetComponent<Animator>().enabled = !card.GetComponent<Animator>().enabled;
                 SetInt("Animated",level + 1);
             }
@@ -151,13 +168,15 @@ public class MainManager : MonoBehaviour
         cam.GetComponent<Animator>().enabled = !cam.GetComponent<Animator>().enabled;
         startbtn.SetActive(false);
         StartCoroutine(EnableLevelCam());
+        enter = 1;
     }
 
 
     public void Resetlevels()
     {
-        SetInt("Animated", 0 );
-        SetInt("Level", 0 );
+        SetInt("Animated",4 );
+        SetInt("Level",4 );
+        SetInt("End", 0);
     }
     IEnumerator EnableLevelCam()
     {
