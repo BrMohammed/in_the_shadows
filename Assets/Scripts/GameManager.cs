@@ -52,6 +52,11 @@ public class GameManager : MonoBehaviour
             Ray ray = cam.ScreenPointToRay(mousePos);
 
             RaycastHit hit;
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << LayerMask.NameToLayer("Exit")))
+            {
+                print("here");
+                SceneManager.LoadScene(0);
+            }
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask))
             {
                 if (isMouse0Down)
