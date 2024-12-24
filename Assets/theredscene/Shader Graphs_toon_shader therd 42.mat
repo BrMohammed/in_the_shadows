@@ -50,7 +50,7 @@ Material:
     - _Min: 0.4
     - _QueueControl: 1
     - _QueueOffset: 50
-    - _Shades: 0.15
+    - _Shades: 0.414
     - _Size: 0.181
     - _SrcBlend: 1
     - _Surface: 0

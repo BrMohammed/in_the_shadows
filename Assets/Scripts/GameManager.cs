@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
     public float speed = 1f;
 
     public LayerMask layerMask;
+    public LayerMask layerMaskmovement;
     private Vector3 tempMousePos;
     private bool isDragging = false;
 
@@ -66,7 +67,6 @@ public class GameManager : MonoBehaviour
 
 
             }
-
             if (isMouse0Up)
             {
                 isDragging = false;
@@ -93,12 +93,7 @@ public class GameManager : MonoBehaviour
                 float deltaY = mousePos.y - tempMousePos.y;
                 obj.transform.Rotate(deltaY * speed * Time.deltaTime, 0, 0, Space.World);
             }
-            if (isDragging && !isCtrlDown && isShiftDown && levels == Levels.movement)
-            {
-                Vector3 worldMousePos = cam.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, distence));
-                obj.transform.position = new Vector3(worldMousePos.x, worldMousePos.y, 0);
-
-            }
+            
             if (IsRotationCloseToTarget(obj.transform.eulerAngles, rotate, tolerance))
             {
                 Debug.Log("Rotation is close to the target!");
