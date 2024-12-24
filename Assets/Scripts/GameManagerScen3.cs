@@ -90,8 +90,8 @@ public class GameManagerScen3 : MonoBehaviour
 
             if (!ismoving && isDragging && isCtrlDown && !isShiftDown && (levels == Levels.vertical || levels == Levels.movement))
             {
-                float deltaY = mousePos.y - tempMousePos.y;
-                obj.transform.Rotate(deltaY * speed * Time.deltaTime, 0, 0, Space.World);
+                float deltaY = -mousePos.y + tempMousePos.y;
+                obj.transform.Rotate(0, 0, deltaY * speed * Time.deltaTime, Space.World);
             }
             if (!ismoving && isDragging && !isCtrlDown && isShiftDown && levels == Levels.movement)
             {
@@ -107,8 +107,8 @@ public class GameManagerScen3 : MonoBehaviour
 
             if (!isDragging && ismoving && isCtrlDown && !isShiftDown && (levels == Levels.vertical || levels == Levels.movement))
             {
-                float deltaY = mousePos.y - tempMousePos.y;
-                obj2.transform.Rotate(deltaY * speed * Time.deltaTime, 0, 0, Space.World);
+                float deltaY = - mousePos.y + tempMousePos.y;
+                obj2.transform.Rotate(0, 0, deltaY * speed * Time.deltaTime, Space.World);
             }
             if (!isDragging && ismoving && !isCtrlDown && isShiftDown && levels == Levels.movement)
             {

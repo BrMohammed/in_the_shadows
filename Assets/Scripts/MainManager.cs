@@ -174,8 +174,8 @@ public class MainManager : MonoBehaviour
 
     public void Resetlevels()
     {
-        SetInt("Animated",4 );
-        SetInt("Level",4 );
+        SetInt("Animated",0 );
+        SetInt("Level",0 );
         SetInt("End", 0);
     }
     IEnumerator EnableLevelCam()

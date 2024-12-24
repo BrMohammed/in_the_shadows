@@ -821,7 +821,7 @@ Animator:
   m_GameObject: {fileID: 330585543}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 0cfc9d1761b23dd49be80e17bbca7e8d, type: 2}
+  m_Controller: {fileID: 9100000, guid: 26a95f191cf20f64789ec6f2515f8be5, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -939,6 +939,9 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 8
+  layerMaskmovement:
+    serializedVersion: 2
+    m_Bits: 0
   offsetofobj: {x: 0, y: 0}
 --- !u!4 &383105952
 Transform:

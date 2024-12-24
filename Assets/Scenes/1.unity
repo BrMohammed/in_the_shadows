@@ -1214,7 +1214,7 @@ Animator:
   m_GameObject: {fileID: 330585543}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 0cfc9d1761b23dd49be80e17bbca7e8d, type: 2}
+  m_Controller: {fileID: 9100000, guid: 821fc540b065ef847acac8868c4f0af9, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1464,6 +1464,9 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 8
+  layerMaskmovement:
+    serializedVersion: 2
+    m_Bits: 0
   offsetofobj: {x: 0, y: 0}
 --- !u!4 &383105952
 Transform:
@@ -6430,7 +6433,7 @@ Transform:
   m_GameObject: {fileID: 2011384690}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.16, y: 7.03, z: 7.9}
+  m_LocalPosition: {x: -7.161, y: 7.03, z: 7.9}
   m_LocalScale: {x: 0.14, y: 0.14, z: 0.14}
   m_ConstrainProportionsScale: 1
   m_Children:
