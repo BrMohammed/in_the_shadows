@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,7 +10,7 @@ public class MainManager : MonoBehaviour
     [SerializeField] private int numberofscens = 5;
     [SerializeField] private GameObject cam;
     [SerializeField] private GameObject Levelcam;
-    [SerializeField] private GameObject startbtn;
+
     [SerializeField] private float timeoftransactioncofcam = 2;
     [SerializeField] private float TimeofMoveCardes = 2;
     [SerializeField] private float floatHeightForcard = 0.5f;
@@ -27,6 +28,13 @@ public class MainManager : MonoBehaviour
 
 
     static int enter = 0;
+    [Header("Menu")]
+    [SerializeField] private GameObject menu;
+    [SerializeField] private GameObject menuto;
+    [SerializeField] private GameObject menenubegin;
+    [SerializeField] private float animationmenuetime = 0.8f;
+
+
 
     private void Awake()
     {
@@ -35,10 +43,12 @@ public class MainManager : MonoBehaviour
     }
     private void Start()
     {
+        menu.transform.localPosition = menuto.transform.localPosition;
+        LeanTween.moveLocal(menu, new Vector3(menenubegin.transform.localPosition.x, menenubegin.transform.localPosition.y, menenubegin.transform.localPosition.z), animationmenuetime).setEase(LeanTweenType.easeOutBack);
         if (enter == 1)
         {
             Levelcam.SetActive(true);
-            startbtn.SetActive(false);
+            menu.SetActive(false);
         }
         print("Animated :" + Getint("Animated") + "Level :" + Getint("Level"));
         _cam = Camera.main;
@@ -166,7 +176,9 @@ public class MainManager : MonoBehaviour
     public void GoToMenue()
     {
         cam.GetComponent<Animator>().enabled = !cam.GetComponent<Animator>().enabled;
-        startbtn.SetActive(false);
+      
+
+        LeanTween.moveLocal(menu, new Vector3(menuto.transform.localPosition.x , menuto.transform.localPosition.y , menuto.transform.localPosition.z), animationmenuetime).setEase(LeanTweenType.easeInBack);
         StartCoroutine(EnableLevelCam());
         enter = 1;
     }
