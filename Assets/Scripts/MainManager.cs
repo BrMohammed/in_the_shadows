@@ -29,10 +29,13 @@ public class MainManager : MonoBehaviour
 
     static int enter = 0;
     [Header("Menu")]
-    [SerializeField] private GameObject menu;
+    public  GameObject menu;
     [SerializeField] private GameObject menuto;
     [SerializeField] private GameObject menenubegin;
     [SerializeField] private float animationmenuetime = 0.8f;
+    [SerializeField] private GameObject Aboutpage;
+    [SerializeField] private GameObject ReturnBtn;
+
 
 
 
@@ -173,22 +176,94 @@ public class MainManager : MonoBehaviour
 
 
 
-    public void GoToMenue()
+    public void GoToleveles()
     {
-        cam.GetComponent<Animator>().enabled = !cam.GetComponent<Animator>().enabled;
-      
+        LeanTween.moveLocal(menu, new Vector3(menuto.transform.localPosition.x, menuto.transform.localPosition.y, menuto.transform.localPosition.z), animationmenuetime)
+        .setEase(LeanTweenType.easeInBack).setOnComplete(() =>
+        {
+            LeanTween.moveLocal(cam, new Vector3(0, 4.81f, -10.03f), 1.1f).setOnComplete(() =>
+            {
+                LeanTween.moveLocal(cam, new Vector3(0, 5.67000008f, -12.1899996f), 0.8f).setOnComplete(() =>
+                {
+                    LeanTween.moveLocal(cam, new Vector3(0, 5.25f, -11.2299995f), 0.9f);
+                });
+               
+            });
+            LeanTween.rotateLocal(cam, new Vector3(344.953003f, 0, 0), 1.1f).setOnComplete(() =>
+            {
+                LeanTween.rotateLocal(cam, new Vector3(47.6199989f, 0, 0), 0.8f).setOnComplete(() =>
+                {
+                    LeanTween.rotateLocal(cam, new Vector3(63.045002f, 0, 0), 0.9f).setOnComplete(() =>
+                    {
+                        ReturnBtn.SetActive(true);
+                    });
+                });
 
-        LeanTween.moveLocal(menu, new Vector3(menuto.transform.localPosition.x , menuto.transform.localPosition.y , menuto.transform.localPosition.z), animationmenuetime).setEase(LeanTweenType.easeInBack);
-        StartCoroutine(EnableLevelCam());
+            });
+
+        });
         enter = 1;
     }
+    public void returntomenu()
+    {
+        ReturnBtn.SetActive(false);
+        LeanTween.moveLocal(cam, new Vector3(0, 5.67000008f, -12.1899996f), 0.9f).setOnComplete(() =>
+            {
+                LeanTween.moveLocal(cam, new Vector3(0, 4.80999994f, -10.0389996f), 0.8f).setOnComplete(() =>
+                {
+                    LeanTween.moveLocal(cam, new Vector3(0, 4, -8.93999958f), 1.1f);
+                });
 
+            });
+            LeanTween.rotateLocal(cam, new Vector3(47.6199989f, 0, 0), 0.9f).setOnComplete(() =>
+            {
+                LeanTween.rotateLocal(cam, new Vector3(344.953003f, 0, 0), 0.8f).setOnComplete(() =>
+                {
+                    LeanTween.rotateLocal(cam, new Vector3(315.580017f, 0, 0), 1.1f).setOnComplete(() =>
+                    {
+
+                        LeanTween.moveLocal(menu, new Vector3(menenubegin.transform.localPosition.x, menenubegin.transform.localPosition.y, menenubegin.transform.localPosition.z), animationmenuetime)
+                        .setEase(LeanTweenType.easeOutBack);
+                    });
+                });
+
+
+        });
+        enter = 0;
+    }
 
     public void Resetlevels()
     {
         SetInt("Animated",0 );
         SetInt("Level",0 );
         SetInt("End", 0);
+    }
+
+    public void schowaboutpage()
+    {
+        LeanTween.moveLocal(menu, new Vector3(menuto.transform.localPosition.x, menuto.transform.localPosition.y, menuto.transform.localPosition.z), animationmenuetime)
+            .setEase(LeanTweenType.easeInBack).setOnComplete(() =>
+            {
+                LeanTween.scale(Aboutpage, new Vector3(1, 1, 1), 1f).setEase(LeanTweenType.easeOutElastic);
+            });
+       
+    }
+    public void Hideaboutpage()
+    {
+
+        LeanTween.scale(Aboutpage, new Vector3(0, 0, 0), 0.5f).setEase(LeanTweenType.easeInBack).setOnComplete(() =>
+        {
+            LeanTween.moveLocal(menu, new Vector3(menenubegin.transform.localPosition.x, menenubegin.transform.localPosition.y, menenubegin.transform.localPosition.z), animationmenuetime).setEase(LeanTweenType.easeOutBack);
+
+        });
+    }
+    public void CloseGame()
+    {
+        #if UNITY_EDITOR
+            EditorApplication.isPlaying = false;
+        #else
+            Application.Quit();
+        #endif
     }
     IEnumerator EnableLevelCam()
     {
