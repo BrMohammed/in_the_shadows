@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Burst.CompilerServices;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -13,7 +14,7 @@ public enum Levels
 
 public class GameManager : MonoBehaviour
 {
-    public GameObject winobj;
+   
     public float distence;
     public GameObject obj;
     Camera cam;
@@ -35,10 +36,17 @@ public class GameManager : MonoBehaviour
 
     bool win = false;
 
+    [Header("UI")]
+    public GameObject Guid;
+    public GameObject exit;
+    public GameObject winobj;
+
     void Start()
     {
         cam = Camera.main;
         tempMousePos = obj.transform.position;
+        exit.SetActive(false);
+        schowGuidtpage();
     }
 
     void Update()
@@ -100,6 +108,7 @@ public class GameManager : MonoBehaviour
                 obj.transform.eulerAngles = rotate;
                 win = true;
                 winobj.SetActive(true);
+                LeanTween.scale(winobj, new Vector3(1.3f, 1.3f, 1.3f), 1.2f).setEase(LeanTweenType.easeOutElastic).setDelay(1.8f);
                 int sceneName = int.Parse(SceneManager.GetActiveScene().name) ;
                 if(sceneName > MainManager.init.Getint("Level" ))
                      MainManager.init.SetInt("Level", sceneName);
@@ -118,5 +127,21 @@ public class GameManager : MonoBehaviour
     public void ChengeScene()
     {
         SceneManager.LoadScene(0);
+        MainManager.enter = 1;
+    }
+
+    public void schowGuidtpage()
+    {
+
+            LeanTween.scale(Guid, new Vector3(1, 1, 1), 1.2f).setEase(LeanTweenType.easeOutElastic).setDelay(1.8f);
+
+    }
+    public void HideGuidpage()
+    {
+
+        LeanTween.scale(Guid, new Vector3(0, 0, 0), 0.5f).setEase(LeanTweenType.easeInBack).setOnComplete(() =>
+        {
+            exit.SetActive(true);
+        });
     }
 }

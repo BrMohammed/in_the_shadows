@@ -34,10 +34,17 @@ public class GameManagerScen3 : MonoBehaviour
     bool win = false;
     bool ismoving = false;
 
+
+    [Header("UI")]
+    public GameObject Guid;
+    public GameObject exit;
+
     void Start()
     {
         cam = Camera.main;
         tempMousePos = obj.transform.position;
+        exit.SetActive(false);
+        schowGuidtpage();
     }
 
     void Update()
@@ -127,6 +134,7 @@ public class GameManagerScen3 : MonoBehaviour
                 obj.transform.position = transformobj;
                 win = true;
                 winobj.SetActive(true);
+                LeanTween.scale(winobj, new Vector3(1.3f, 1.3f, 1.3f), 1.2f).setEase(LeanTweenType.easeOutElastic).setDelay(1.8f);
                 int sceneName = int.Parse(SceneManager.GetActiveScene().name);
                 if (sceneName > MainManager.init.Getint("Level"))
                     MainManager.init.SetInt("Level", sceneName);
@@ -150,5 +158,21 @@ public class GameManagerScen3 : MonoBehaviour
     public void ChengeScene()
     {
         SceneManager.LoadScene(0);
+        MainManager.enter = 1;
+    }
+
+    public void schowGuidtpage()
+    {
+
+        LeanTween.scale(Guid, new Vector3(1, 1, 1), 1.2f).setEase(LeanTweenType.easeOutElastic).setDelay(1.8f);
+
+    }
+    public void HideGuidpage()
+    {
+
+        LeanTween.scale(Guid, new Vector3(0, 0, 0), 0.5f).setEase(LeanTweenType.easeInBack).setOnComplete(() =>
+        {
+            exit.SetActive(true);
+        });
     }
 }

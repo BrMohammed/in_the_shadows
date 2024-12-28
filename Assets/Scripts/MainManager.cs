@@ -27,7 +27,7 @@ public class MainManager : MonoBehaviour
     bool animation = false;
 
 
-    static int enter = 0;
+    static public int enter = 0;
     [Header("Menu")]
     public  GameObject menu;
     [SerializeField] private GameObject menuto;
@@ -47,12 +47,18 @@ public class MainManager : MonoBehaviour
     private void Start()
     {
         menu.transform.localPosition = menuto.transform.localPosition;
-        LeanTween.moveLocal(menu, new Vector3(menenubegin.transform.localPosition.x, menenubegin.transform.localPosition.y, menenubegin.transform.localPosition.z), animationmenuetime).setEase(LeanTweenType.easeOutBack);
         if (enter == 1)
         {
             Levelcam.SetActive(true);
             menu.SetActive(false);
+            ReturnBtn.SetActive(true);
+            cam.SetActive(false);
+            cam.transform.position = Levelcam.transform.position;
+            cam.transform.rotation = Levelcam.transform.rotation;
         }
+        else
+            LeanTween.moveLocal(menu, new Vector3(menenubegin.transform.localPosition.x, menenubegin.transform.localPosition.y, menenubegin.transform.localPosition.z), animationmenuetime).setEase(LeanTweenType.easeOutBack).setDelay(1f);
+
         print("Animated :" + Getint("Animated") + "Level :" + Getint("Level"));
         _cam = Camera.main;
         int Animated = Getint("Animated");
@@ -181,21 +187,23 @@ public class MainManager : MonoBehaviour
         LeanTween.moveLocal(menu, new Vector3(menuto.transform.localPosition.x, menuto.transform.localPosition.y, menuto.transform.localPosition.z), animationmenuetime)
         .setEase(LeanTweenType.easeInBack).setOnComplete(() =>
         {
-            LeanTween.moveLocal(cam, new Vector3(0, 4.81f, -10.03f), 1.1f).setOnComplete(() =>
+            LeanTween.moveLocal(cam, new Vector3(0, 4.81f, -10.03f), 0.9f).setOnComplete(() =>
             {
-                LeanTween.moveLocal(cam, new Vector3(0, 5.67000008f, -12.1899996f), 0.8f).setOnComplete(() =>
+                LeanTween.moveLocal(cam, new Vector3(0, 5.67000008f, -12.1899996f), 0.6f).setOnComplete(() =>
                 {
-                    LeanTween.moveLocal(cam, new Vector3(0, 5.25f, -11.2299995f), 0.9f);
+                    LeanTween.moveLocal(cam, new Vector3(0, 5.25f, -11.2299995f), 0.5f);
                 });
                
             });
-            LeanTween.rotateLocal(cam, new Vector3(344.953003f, 0, 0), 1.1f).setOnComplete(() =>
+            LeanTween.rotateLocal(cam, new Vector3(344.953003f, 0, 0), 0.9f).setOnComplete(() =>
             {
-                LeanTween.rotateLocal(cam, new Vector3(47.6199989f, 0, 0), 0.8f).setOnComplete(() =>
+                LeanTween.rotateLocal(cam, new Vector3(47.6199989f, 0, 0), 0.6f).setOnComplete(() =>
                 {
-                    LeanTween.rotateLocal(cam, new Vector3(63.045002f, 0, 0), 0.9f).setOnComplete(() =>
+                    LeanTween.rotateLocal(cam, new Vector3(63.045002f, 0, 0), 0.5f).setOnComplete(() =>
                     {
                         ReturnBtn.SetActive(true);
+                        Levelcam.SetActive(true);
+                        cam.SetActive(false);
                     });
                 });
 
@@ -207,19 +215,22 @@ public class MainManager : MonoBehaviour
     public void returntomenu()
     {
         ReturnBtn.SetActive(false);
-        LeanTween.moveLocal(cam, new Vector3(0, 5.67000008f, -12.1899996f), 0.9f).setOnComplete(() =>
+        Levelcam.SetActive(false);
+        menu.SetActive(true);
+        cam.SetActive(true);
+        LeanTween.moveLocal(cam, new Vector3(0, 5.67000008f, -12.1899996f), 0.5f).setOnComplete(() =>
             {
-                LeanTween.moveLocal(cam, new Vector3(0, 4.80999994f, -10.0389996f), 0.8f).setOnComplete(() =>
+                LeanTween.moveLocal(cam, new Vector3(0, 4.80999994f, -10.0389996f), 0.6f).setOnComplete(() =>
                 {
-                    LeanTween.moveLocal(cam, new Vector3(0, 4, -8.93999958f), 1.1f);
+                    LeanTween.moveLocal(cam, new Vector3(0, 4, -8.93999958f), 0.9f);
                 });
 
             });
-            LeanTween.rotateLocal(cam, new Vector3(47.6199989f, 0, 0), 0.9f).setOnComplete(() =>
+            LeanTween.rotateLocal(cam, new Vector3(47.6199989f, 0, 0), 0.5f).setOnComplete(() =>
             {
-                LeanTween.rotateLocal(cam, new Vector3(344.953003f, 0, 0), 0.8f).setOnComplete(() =>
+                LeanTween.rotateLocal(cam, new Vector3(344.953003f, 0, 0), 0.6f).setOnComplete(() =>
                 {
-                    LeanTween.rotateLocal(cam, new Vector3(315.580017f, 0, 0), 1.1f).setOnComplete(() =>
+                    LeanTween.rotateLocal(cam, new Vector3(315.580017f, 0, 0),0.9f).setOnComplete(() =>
                     {
 
                         LeanTween.moveLocal(menu, new Vector3(menenubegin.transform.localPosition.x, menenubegin.transform.localPosition.y, menenubegin.transform.localPosition.z), animationmenuetime)
