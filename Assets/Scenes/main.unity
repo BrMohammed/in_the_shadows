@@ -330,12 +330,12 @@ GameObject:
   - component: {fileID: 72303600}
   - component: {fileID: 72303599}
   m_Layer: 5
-  m_Name: Button
+  m_Name: reset
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &72303598
 RectTransform:
   m_ObjectHideFlags: 0
@@ -669,7 +669,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 384611831}
         m_TargetAssemblyTypeName: MainManager, Assembly-CSharp
-        m_MethodName: GoToMenue
+        m_MethodName: MutMusic
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1656,6 +1656,10 @@ MonoBehaviour:
   animationmenuetime: 0.8
   Aboutpage: {fileID: 1818492320}
   ReturnBtn: {fileID: 1069596832}
+  P_Sound: {fileID: 412213060}
+  M_Sound: {fileID: 438073035}
+  P_Music: {fileID: 1090558361}
+  M_Music: {fileID: 93340672}
 --- !u!1 &412213060
 GameObject:
   m_ObjectHideFlags: 0
@@ -1740,7 +1744,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 384611831}
         m_TargetAssemblyTypeName: MainManager, Assembly-CSharp
-        m_MethodName: GoToMenue
+        m_MethodName: PlaySound
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2006,7 +2010,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 384611831}
         m_TargetAssemblyTypeName: MainManager, Assembly-CSharp
-        m_MethodName: GoToMenue
+        m_MethodName: MutSound
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3789,7 +3793,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 384611831}
         m_TargetAssemblyTypeName: MainManager, Assembly-CSharp
-        m_MethodName: GoToMenue
+        m_MethodName: PlayMusic
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

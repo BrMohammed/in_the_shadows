@@ -157,6 +157,7 @@ public class GameManagerScen3 : MonoBehaviour
 
     public void ChengeScene()
     {
+        AudioManager.instance.PlaySound("click");
         SceneManager.LoadScene(0);
         MainManager.enter = 1;
     }
@@ -169,7 +170,7 @@ public class GameManagerScen3 : MonoBehaviour
     }
     public void HideGuidpage()
     {
-
+        AudioManager.instance.PlaySound("click");
         LeanTween.scale(Guid, new Vector3(0, 0, 0), 0.5f).setEase(LeanTweenType.easeInBack).setOnComplete(() =>
         {
             exit.SetActive(true);

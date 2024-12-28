@@ -11,27 +11,27 @@ public class Hover : MonoBehaviour,IPointerEnterHandler , IPointerExitHandler,IP
     bool clicked = false;
     void Start()
     {
-        enter = new Vector2( this.transform.localPosition.x, this.transform.localPosition.y);
+        LeanTween.scale(this.gameObject, new Vector3(1f, 1f, 1f), 0f).setEase(LeanTweenType.easeOutElastic);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
         if(!clicked)
-            this.transform.localPosition = new Vector2(transform.localPosition.x - move, transform.localPosition.y);
+            LeanTween.scale(this.gameObject, new Vector3(1.3f, 1.3f, 1.3f), 0f).setEase(LeanTweenType.easeOutElastic);
 
 
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        this.transform.localPosition = new Vector2(enter.x,enter.y);
+        LeanTween.scale(this.gameObject, new Vector3(1f, 1f, 1f), 0f).setEase(LeanTweenType.easeOutElastic);
 
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
         clicked = true;
-        this.transform.localPosition = new Vector2(enter.x, enter.y);
+        LeanTween.scale(this.gameObject, new Vector3(1f, 1f, 1f), 0f).setEase(LeanTweenType.easeOutElastic);
         StartCoroutine(wait());
     }
 

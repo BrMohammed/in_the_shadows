@@ -47,19 +47,12 @@ public class AudioManager : MonoBehaviour
         }
         s.source.mute = !s.source.mute;
     }
-    public void MuteShield(string name,bool mute)
+    public bool IsMuted(string name)
     {
         Sound s = Array.Find(sounds, sound => sound.name == name);
-        if (s == null)
-        {
-            //Debug.LogWarning("Shield soun error");
-            return;
-        }
-        if(mute == true)
-            s.source.mute = true;
-        else
-            s.source.mute = false;
+        return s.source.mute;
     }
+
     public void PauseSound(string name)
     {
         Sound s = Array.Find(sounds, sound => sound.name == name);
@@ -83,5 +76,6 @@ public class AudioManager : MonoBehaviour
     private void Start()
     {
         PlaySound("Theme");
+        IsMuted("Theme");
     }
 }

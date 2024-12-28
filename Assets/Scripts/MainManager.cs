@@ -36,6 +36,11 @@ public class MainManager : MonoBehaviour
     [SerializeField] private GameObject Aboutpage;
     [SerializeField] private GameObject ReturnBtn;
 
+    [Header("Sound and Music")]
+    public GameObject P_Sound;
+    public GameObject M_Sound;
+    public GameObject P_Music;
+    public GameObject M_Music;
 
 
 
@@ -119,13 +124,15 @@ public class MainManager : MonoBehaviour
             
             Vector3 mousePos = Input.mousePosition;
             bool isMouse0Up = Input.GetMouseButtonUp(0);
-            Ray ray = Levelcam.GetComponent<Camera>().ScreenPointToRay(mousePos);
+            bool isMouse0Down = Input.GetKey(KeyCode.Mouse0);
+        Ray ray = Levelcam.GetComponent<Camera>().ScreenPointToRay(mousePos);
 
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask))
             {
-
-                if (isMouse0Up)
+                if(isMouse0Down)
+                AudioManager.instance.PlaySound("click");
+            if (isMouse0Up)
                 {
                     Vector3 targetPosition = hit.transform.position + OfssetOfCamMovement;
                     _fadeui.GetComponent<Animator>().enabled = !_fadeui.GetComponent<Animator>().enabled;
@@ -184,6 +191,7 @@ public class MainManager : MonoBehaviour
 
     public void GoToleveles()
     {
+       
         AudioManager.instance.PlaySound("click");
         LeanTween.moveLocal(menu, new Vector3(menuto.transform.localPosition.x, menuto.transform.localPosition.y, menuto.transform.localPosition.z), animationmenuetime)
         .setEase(LeanTweenType.easeInBack).setOnComplete(() =>
@@ -215,6 +223,7 @@ public class MainManager : MonoBehaviour
     }
     public void returntomenu()
     {
+        AudioManager.instance.PlaySound("click");
         ReturnBtn.SetActive(false);
         Levelcam.SetActive(false);
         menu.SetActive(true);
@@ -272,6 +281,7 @@ public class MainManager : MonoBehaviour
     }
     public void CloseGame()
     {
+        AudioManager.instance.PlaySound("click");
         #if UNITY_EDITOR
             EditorApplication.isPlaying = false;
         #else
@@ -283,5 +293,46 @@ public class MainManager : MonoBehaviour
         yield return new WaitForSeconds(3);
         Levelcam.SetActive(true);
         cam.SetActive(false);
+    }
+    public void PlayMusic()
+    {
+        if(!M_Music.active)
+        {
+            AudioManager.instance.PlaySound("click");
+            AudioManager.instance.MuteSound("Theme");
+            P_Music.SetActive(false);
+            M_Music.SetActive(true);
+        }
+    }
+    public void MutMusic()
+    {
+        if (!P_Music.active)
+        {
+            AudioManager.instance.PlaySound("click");
+            AudioManager.instance.MuteSound("Theme");
+            P_Music.SetActive(true);
+            M_Music.SetActive(false);
+        }
+    }
+
+
+    public void PlaySound()
+    {
+        if (!M_Sound.active)
+        {
+            AudioManager.instance.PlaySound("click");
+            AudioManager.instance.MuteSound("click");
+            P_Sound.SetActive(false);
+            M_Sound.SetActive(true);
+        }
+    }
+    public void MutSound()
+    {
+        if (!P_Sound.active)
+        {
+            AudioManager.instance.MuteSound("click");
+            P_Sound.SetActive(true);
+            M_Sound.SetActive(false);
+        }
     }
 }
