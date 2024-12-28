@@ -184,6 +184,7 @@ public class MainManager : MonoBehaviour
 
     public void GoToleveles()
     {
+        AudioManager.instance.PlaySound("click");
         LeanTween.moveLocal(menu, new Vector3(menuto.transform.localPosition.x, menuto.transform.localPosition.y, menuto.transform.localPosition.z), animationmenuetime)
         .setEase(LeanTweenType.easeInBack).setOnComplete(() =>
         {
@@ -252,6 +253,7 @@ public class MainManager : MonoBehaviour
 
     public void schowaboutpage()
     {
+        AudioManager.instance.PlaySound("click");
         LeanTween.moveLocal(menu, new Vector3(menuto.transform.localPosition.x, menuto.transform.localPosition.y, menuto.transform.localPosition.z), animationmenuetime)
             .setEase(LeanTweenType.easeInBack).setOnComplete(() =>
             {
@@ -261,7 +263,7 @@ public class MainManager : MonoBehaviour
     }
     public void Hideaboutpage()
     {
-
+        AudioManager.instance.PlaySound("click");
         LeanTween.scale(Aboutpage, new Vector3(0, 0, 0), 0.5f).setEase(LeanTweenType.easeInBack).setOnComplete(() =>
         {
             LeanTween.moveLocal(menu, new Vector3(menenubegin.transform.localPosition.x, menenubegin.transform.localPosition.y, menenubegin.transform.localPosition.z), animationmenuetime).setEase(LeanTweenType.easeOutBack);

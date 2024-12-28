@@ -108,7 +108,7 @@ public class GameManager : MonoBehaviour
                 obj.transform.eulerAngles = rotate;
                 win = true;
                 winobj.SetActive(true);
-                LeanTween.scale(winobj, new Vector3(1.3f, 1.3f, 1.3f), 1.2f).setEase(LeanTweenType.easeOutElastic).setDelay(1.8f);
+                LeanTween.scale(winobj, new Vector3(1.3f, 1.3f, 1.3f), 1.2f).setEase(LeanTweenType.easeOutElastic);
                 int sceneName = int.Parse(SceneManager.GetActiveScene().name) ;
                 if(sceneName > MainManager.init.Getint("Level" ))
                      MainManager.init.SetInt("Level", sceneName);
