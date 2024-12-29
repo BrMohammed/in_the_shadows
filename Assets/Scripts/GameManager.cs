@@ -109,9 +109,13 @@ public class GameManager : MonoBehaviour
                 win = true;
                 winobj.SetActive(true);
                 LeanTween.scale(winobj, new Vector3(1.3f, 1.3f, 1.3f), 1.2f).setEase(LeanTweenType.easeOutElastic);
-                int sceneName = int.Parse(SceneManager.GetActiveScene().name) ;
-                if(sceneName > MainManager.init.Getint("Level" ))
-                     MainManager.init.SetInt("Level", sceneName);
+                if (MainManager.init.Getint("Cheat") == 0)
+                {
+                    int sceneName = int.Parse(SceneManager.GetActiveScene().name);
+                    if (sceneName > MainManager.init.Getint("Level"))
+                        MainManager.init.SetInt("Level", sceneName);
+                }
+               
             }
             tempMousePos = mousePos;
         }

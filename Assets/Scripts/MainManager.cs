@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -42,6 +43,7 @@ public class MainManager : MonoBehaviour
     public GameObject P_Music;
     public GameObject M_Music;
 
+    private List<Transform> cardsinitpos = new List<Transform>();
 
 
     private void Awake()
@@ -51,6 +53,8 @@ public class MainManager : MonoBehaviour
     }
     private void Start()
     {
+        
+
         menu.transform.localPosition = menuto.transform.localPosition;
         if (enter == 1)
         {
@@ -66,9 +70,41 @@ public class MainManager : MonoBehaviour
 
         print("Animated :" + Getint("Animated") + "Level :" + Getint("Level"));
         _cam = Camera.main;
+        initposofcars();
+
+
+        for (int i = 0; i < numberofscens; i++)
+        {
+            GameObject obj = new GameObject();
+            Transform t = obj.transform;
+             t.position  = new Vector3(AllCards[i].transform.position.x , AllCards[i].transform.position.y, AllCards[i].transform.position.z);
+             t.rotation  = AllCards[i].transform.rotation;
+            cardsinitpos.Add(t);
+        }
+        if (Getint("Cheat") == 1)
+        {
+            for (int i = 0; i < numberofscens; i++)
+            {
+                int LayerIgnoreRaycast = LayerMask.NameToLayer("click");
+                AllCards[i].layer = LayerIgnoreRaycast;
+                AllCards[i].transform.position = CardsPosetion[i].transform.position;
+                AllCards[i].transform.rotation = Quaternion.Euler(270, 180, 0);
+            }
+           
+           
+        }
+        for (int i = 0; i < numberofscens; i++)
+        {
+            int LayerIgnoreRaycast = LayerMask.NameToLayer("Default");
+            AllCards[i].layer = LayerIgnoreRaycast;
+        }
+    }
+
+    public void initposofcars()
+    {
         int Animated = Getint("Animated");
         int Level = Getint("Level");
-        if (Animated != 0)
+        if (Animated != 0 && Getint("Cheat") == 0)
         {
             for (int i = 0; i < Animated; i++)
             {
@@ -80,26 +116,24 @@ public class MainManager : MonoBehaviour
             {
                 AllCards[i].transform.rotation = Quaternion.Euler(270, 180, 0);
             }
-            if(Animated == numberofscens)
+            if (Animated == numberofscens)
             {
-                if(Getint("End") == 0)
+                if (Getint("End") == 0)
                 {
                     AllCards[numberofscens - 1].GetComponent<Animator>().enabled = !AllCards[numberofscens - 1].GetComponent<Animator>().enabled;
-                    SetInt("End",1);
+                    SetInt("End", 1);
                 }
-                else if(Getint("End") == 1)
+                else if (Getint("End") == 1)
                     AllCards[Level - 1].transform.rotation = Quaternion.Euler(270, 180, 0);
 
             }
         }
     }
 
-
-
     private void Update()
     {
 
-        if(Levelcam.activeSelf && !animation)
+            if (Levelcam.activeSelf && !animation && Getint("Cheat") == 0)
         {
             int level = Getint("Level");
             int Animated = Getint("Animated");
@@ -115,6 +149,14 @@ public class MainManager : MonoBehaviour
                         AllCards[level - 1].layer = LayerIgnoreRaycast;
                     }
                     StartCoroutine(Flipcard());
+                    for (int i = 0; i < numberofscens; i++)
+                    {
+                        GameObject obj = new GameObject();
+                        Transform t = obj.transform;
+                        t.position = new Vector3(AllCards[i].transform.position.x, AllCards[i].transform.position.y, AllCards[i].transform.position.z);
+                        t.rotation = AllCards[i].transform.rotation;
+                        cardsinitpos.Add(t);
+                    }
                 }
                
                 
@@ -191,22 +233,31 @@ public class MainManager : MonoBehaviour
 
     public void GoToleveles()
     {
-       
+        SetInt("Cheat", 0);
         AudioManager.instance.PlaySound("click");
+        for (int i = 0; i < numberofscens; i++)
+        {
+            int LayerIgnoreRaycast = LayerMask.NameToLayer("Default");
+            AllCards[i].layer = LayerIgnoreRaycast;
+            AllCards[i].transform.position = cardsinitpos[i].position;
+            AllCards[i].transform.rotation = cardsinitpos[i].rotation;
+        }
+        initposofcars();
+
         LeanTween.moveLocal(menu, new Vector3(menuto.transform.localPosition.x, menuto.transform.localPosition.y, menuto.transform.localPosition.z), animationmenuetime)
         .setEase(LeanTweenType.easeInBack).setOnComplete(() =>
         {
-            LeanTween.moveLocal(cam, new Vector3(0, 4.81f, -10.03f), 0.9f).setOnComplete(() =>
+            LeanTween.moveLocal(cam, new Vector3(0, 4.81f, -10.03f), 0.7f).setOnComplete(() =>
             {
-                LeanTween.moveLocal(cam, new Vector3(0, 5.67000008f, -12.1899996f), 0.6f).setOnComplete(() =>
+                LeanTween.moveLocal(cam, new Vector3(0, 5.67000008f, -12.1899996f), 0.7f).setOnComplete(() =>
                 {
                     LeanTween.moveLocal(cam, new Vector3(0, 5.25f, -11.2299995f), 0.5f);
                 });
                
             });
-            LeanTween.rotateLocal(cam, new Vector3(344.953003f, 0, 0), 0.9f).setOnComplete(() =>
+            LeanTween.rotateLocal(cam, new Vector3(344.953003f, 0, 0), 0.7f).setOnComplete(() =>
             {
-                LeanTween.rotateLocal(cam, new Vector3(47.6199989f, 0, 0), 0.6f).setOnComplete(() =>
+                LeanTween.rotateLocal(cam, new Vector3(47.6199989f, 0, 0), 0.7f).setOnComplete(() =>
                 {
                     LeanTween.rotateLocal(cam, new Vector3(63.045002f, 0, 0), 0.5f).setOnComplete(() =>
                     {
@@ -223,24 +274,30 @@ public class MainManager : MonoBehaviour
     }
     public void returntomenu()
     {
+        for (int i = 0; i < numberofscens; i++)
+        {
+            int LayerIgnoreRaycast = LayerMask.NameToLayer("Default");
+            AllCards[i].layer = LayerIgnoreRaycast;
+        }
         AudioManager.instance.PlaySound("click");
+        LeanTween.scale(ReturnBtn, new Vector3(1f, 1f, 1f), 0f).setEase(LeanTweenType.easeOutElastic);
         ReturnBtn.SetActive(false);
         Levelcam.SetActive(false);
         menu.SetActive(true);
         cam.SetActive(true);
         LeanTween.moveLocal(cam, new Vector3(0, 5.67000008f, -12.1899996f), 0.5f).setOnComplete(() =>
             {
-                LeanTween.moveLocal(cam, new Vector3(0, 4.80999994f, -10.0389996f), 0.6f).setOnComplete(() =>
+                LeanTween.moveLocal(cam, new Vector3(0, 4.80999994f, -10.0389996f), 0.7f).setOnComplete(() =>
                 {
-                    LeanTween.moveLocal(cam, new Vector3(0, 4, -8.93999958f), 0.9f);
+                    LeanTween.moveLocal(cam, new Vector3(0, 4, -8.93999958f), 0.7f);
                 });
 
             });
             LeanTween.rotateLocal(cam, new Vector3(47.6199989f, 0, 0), 0.5f).setOnComplete(() =>
             {
-                LeanTween.rotateLocal(cam, new Vector3(344.953003f, 0, 0), 0.6f).setOnComplete(() =>
+                LeanTween.rotateLocal(cam, new Vector3(344.953003f, 0, 0), 0.7f).setOnComplete(() =>
                 {
-                    LeanTween.rotateLocal(cam, new Vector3(315.580017f, 0, 0),0.9f).setOnComplete(() =>
+                    LeanTween.rotateLocal(cam, new Vector3(315.580017f, 0, 0),0.7f).setOnComplete(() =>
                     {
 
                         LeanTween.moveLocal(menu, new Vector3(menenubegin.transform.localPosition.x, menenubegin.transform.localPosition.y, menenubegin.transform.localPosition.z), animationmenuetime)
@@ -333,6 +390,25 @@ public class MainManager : MonoBehaviour
             AudioManager.instance.MuteSound("click");
             P_Sound.SetActive(true);
             M_Sound.SetActive(false);
+        }
+    }
+    public void Cheatmode()
+    {
+        GoToleveles();
+        SetInt("Cheat", 1);
+        StartCoroutine(delayoflevelstoclick());
+
+
+    }
+    IEnumerator delayoflevelstoclick()
+    {
+        yield return new WaitForSeconds(0.5f);
+        for (int i = 0; i < numberofscens; i++)
+        {
+            int LayerIgnoreRaycast = LayerMask.NameToLayer("click");
+            AllCards[i].layer = LayerIgnoreRaycast;
+            AllCards[i].transform.position = CardsPosetion[i].transform.position;
+            AllCards[i].transform.rotation = Quaternion.Euler(270, 180, 0);
         }
     }
 }

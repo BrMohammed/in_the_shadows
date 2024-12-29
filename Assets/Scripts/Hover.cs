@@ -17,7 +17,7 @@ public class Hover : MonoBehaviour,IPointerEnterHandler , IPointerExitHandler,IP
     public void OnPointerEnter(PointerEventData eventData)
     {
         if(!clicked)
-            LeanTween.scale(this.gameObject, new Vector3(1.3f, 1.3f, 1.3f), 0f).setEase(LeanTweenType.easeOutElastic);
+            LeanTween.scale(this.gameObject, new Vector3(1.2f, 1.2f, 1.2f), 0f).setEase(LeanTweenType.easeOutElastic);
 
 
     }
@@ -30,8 +30,8 @@ public class Hover : MonoBehaviour,IPointerEnterHandler , IPointerExitHandler,IP
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        clicked = true;
         LeanTween.scale(this.gameObject, new Vector3(1f, 1f, 1f), 0f).setEase(LeanTweenType.easeOutElastic);
+        clicked = true;
         StartCoroutine(wait());
     }
 
