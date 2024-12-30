@@ -79,17 +79,6 @@ public class GameManager : MonoBehaviour
             {
                 isDragging = false;
             }
-
-            //if (isDragging && !isCtrlDown && !isShiftDown)
-            //{
-            //    float deltaX = tempMousePos.x - mousePos.x;
-            //    obj.transform.Rotate(Vector3.up * deltaX * speed * Time.deltaTime);
-            //}
-            //if (isDragging && isCtrlDown && !isShiftDown)
-            //{
-            //    float deltaX = tempMousePos.y - mousePos.y;
-            //    obj.transform.Rotate(Vector3.right * deltaX * speed * Time.deltaTime);
-            //}
             if (isDragging && !isCtrlDown && !isShiftDown)
             {
                 float deltaX = tempMousePos.x - mousePos.x;
