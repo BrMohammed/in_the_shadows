@@ -2165,7 +2165,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "Click and Drag : moving Horizontally ,\n Ctrl + Click and Drag : moving
-    Vertically,\nalt + Click and Drag : move on the space\n\nHint : it's a number"
+    Vertically,\nShift + Click and Drag : move on the space\n\nHint : it's a number"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 22cbca49738491a4c9a457ce14954261, type: 2}
   m_sharedMaterial: {fileID: 7694886948794836005, guid: 22cbca49738491a4c9a457ce14954261,

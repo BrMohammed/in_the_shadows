@@ -53,7 +53,11 @@ public class MainManager : MonoBehaviour
     }
     private void Start()
     {
-        
+        for (int i = 0; i < numberofscens; i++)
+        {
+            int LayerIgnoreRaycast = LayerMask.NameToLayer("Default");
+            AllCards[i].layer = LayerIgnoreRaycast;
+        }
 
         menu.transform.localPosition = menuto.transform.localPosition;
         if (enter == 1)
@@ -93,11 +97,7 @@ public class MainManager : MonoBehaviour
            
            
         }
-        for (int i = 0; i < numberofscens; i++)
-        {
-            int LayerIgnoreRaycast = LayerMask.NameToLayer("Default");
-            AllCards[i].layer = LayerIgnoreRaycast;
-        }
+
     }
 
     public void initposofcars()
